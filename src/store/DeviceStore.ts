@@ -1,11 +1,5 @@
 import { makeAutoObservable } from "mobx"
-import { ITypesType, IBrandsType, IDevicesType } from "../utils/types"
-
-export interface IDeviceStoreType {
-    _types: ITypesType[]
-    _brands: IBrandsType[]
-    _devices: IDevicesType[]
-}
+import { IDeviceStoreType } from "../utils/types"
 
 export default class DeviceStore implements IDeviceStoreType {
 
@@ -17,6 +11,14 @@ export default class DeviceStore implements IDeviceStoreType {
         {
             id: 2,
             name: 'Laptops'
+        },
+        {
+            id: 3,
+            name: 'TV'
+        },
+        {
+            id: 4,
+            name: 'Freezer'
         }
     ]
     _brands = [
@@ -27,6 +29,22 @@ export default class DeviceStore implements IDeviceStoreType {
         {
             id: 2,
             name: 'Apple'
+        },
+        {
+            id: 3,
+            name: 'Xiaomi'
+        },
+        {
+            id: 4,
+            name: 'Huawei'
+        },
+        {
+            id: 5,
+            name: 'Philips'
+        },
+        {
+            id: 6,
+            name: 'Lenovo'
         },
     ]
     _devices = [
@@ -57,13 +75,29 @@ export default class DeviceStore implements IDeviceStoreType {
             price: 2500,
             rating: 5,
             img: 'https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/refurb-iphone-12-pro-max-blue-2020?wid=1144&hei=1144&fmt=jpeg&qlt=90&.v=1635202944000'
-        }
+        },
+        {
+            id: 5,
+            name: 'Iphone 12pro',
+            price: 2500,
+            rating: 5,
+            img: 'https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/refurb-iphone-12-pro-max-blue-2020?wid=1144&hei=1144&fmt=jpeg&qlt=90&.v=1635202944000'
+        },
+        {
+            id: 6,
+            name: 'Iphone 12pro',
+            price: 2500,
+            rating: 5,
+            img: 'https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/refurb-iphone-12-pro-max-blue-2020?wid=1144&hei=1144&fmt=jpeg&qlt=90&.v=1635202944000'
+        },
     ]
+    _selectedType = {}
+
+    _selectedBrand = {} 
 
     constructor () {
         makeAutoObservable(this)
     }
-
 
     setTypes(types: IDeviceStoreType['_types']) {
         this._types = types
@@ -77,6 +111,14 @@ export default class DeviceStore implements IDeviceStoreType {
         this._devices = devices
     }
 
+    setSelectedType(type: IDeviceStoreType['_selectedType']) {
+        this._selectedType = type
+    }
+
+    setSelectedBrand(brand: IDeviceStoreType['_selectedBrand']) {
+        this._selectedBrand = brand
+    }
+
     get types() {
         return this._types
     }
@@ -88,5 +130,12 @@ export default class DeviceStore implements IDeviceStoreType {
     get devices() {
         return this._devices
     }
+
+    get selectedType() {
+        return this._selectedType
+    }
     
+    get selectedBrand() {
+        return this._selectedBrand
+    }
 }

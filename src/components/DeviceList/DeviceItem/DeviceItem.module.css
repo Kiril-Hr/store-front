@@ -1,0 +1,15 @@
+.card {
+    cursor: pointer;
+}
+
+.img {
+    width: 100%;
+    max-height: 400px;
+    height: 100%;
+}
+
+.star {
+    width: 20px;
+    height: 20px;
+    object-fit: cover;
+}

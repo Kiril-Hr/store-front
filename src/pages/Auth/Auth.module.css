@@ -1,0 +1,16 @@
+
+.card {
+    width: 600px;
+}
+
+.card a {
+    text-decoration: none;
+}
+
+.card div div {
+    width: unset;
+}
+
+.card div button {
+    width: 150px;
+}

@@ -2,11 +2,12 @@ import ReactDOM from "react-dom/client";
 import App from "./container/App";
 import { createContext } from "react";
 import UserStore from "./store/UserStore";
-import { IUserStoreType } from "./utils/types";
+import { IDeviceStoreType, IUserStoreType } from "./utils/types";
 import DeviceStore from "./store/DeviceStore";
 
 interface ContextProps {
   user: IUserStoreType;
+  device: IDeviceStoreType;
 }
 
 export const Context = createContext<ContextProps | null>(null);
