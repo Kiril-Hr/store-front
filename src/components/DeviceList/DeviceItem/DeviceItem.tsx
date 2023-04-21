@@ -20,10 +20,10 @@ const DeviceItem = ({ device }: Props) => {
         onClick={() => navigate(`${DEVICE_ROUTE}/${device.id}`)}
       >
         <Image className={classes.img} src={device.img} />
-        <div className="mt-1 d-flex justify-content-between align-items-center p-2 flex-column">
-          <div className="d-flex">
+        <div className="mt-1 d-flex justify-content-between align-items-flex-start p-2 flex-column">
+          <div className="d-flex justify-content-between">
             <div className="text-secondary">Brand name</div>
-            <div className="d-flex justify-content-between align-items-center">
+            <div className="d-flex justify-content-between align-items-center gap-1">
               {device.rating}
               <Image src={star} className={classes.star} />
             </div>

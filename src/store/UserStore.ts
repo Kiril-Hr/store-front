@@ -1,6 +1,7 @@
 import { makeAutoObservable } from "mobx"
 import { IUserStoreType } from '../utils/types'
 
+
 export default class UserStore implements IUserStoreType {
 
   _isAuth = false
