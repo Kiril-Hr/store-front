@@ -1,32 +1,75 @@
-import { Container, Col, Image, Row, Card, Button } from "react-bootstrap";
+import { useEffect, useState } from "react";
+import {
+  Container,
+  Col,
+  Image,
+  Row,
+  Card,
+  Button,
+  Spinner,
+} from "react-bootstrap";
 import bigStar from "../../assets/star.svg";
 import classes from "./DevicePage.module.css";
+import { useNavigate, useParams } from "react-router-dom";
+import { fetchDevice } from "../../query/deviceAPI";
+import { IDevicesType } from "../../utils/types";
+import { URL } from "../../utils/URL";
+import { SHOP_ROUTE } from "../../utils/consts";
+
+type Device = {
+  device: IDevicesType | null;
+  isLoading: boolean;
+};
 
 const DevicePage = () => {
-  const device = {
-    id: 5,
-    name: "Iphone 12pro",
-    price: 2500,
-    rating: 5,
-    img: "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/refurb-iphone-12-pro-max-blue-2020?wid=1144&hei=1144&fmt=jpeg&qlt=90&.v=1635202944000",
-  };
-  const description = [
-    { id: 1, title: "RAM", description: "5 GB" },
-    { id: 2, title: "Camera", description: "12 Mp" },
-    { id: 3, title: "Processor", description: "Intel" },
-    { id: 4, title: "Q-ty of cores", description: "2" },
-    { id: 5, title: "Accumulator", description: "4000" },
-  ];
+  const { id } = useParams();
+  const navigate = useNavigate();
+
+  const [deviceData, setDevice] = useState<Device>({
+    device: null,
+    isLoading: true,
+  });
+
+  useEffect(() => {
+    fetchDevice(id!)
+      .then((data) =>
+        setDevice({
+          device: data,
+          isLoading: false,
+        })
+      )
+      .catch((err) => {
+        alert(err);
+        navigate(SHOP_ROUTE);
+      });
+  }, []);
+
+  if (deviceData.isLoading) {
+    return (
+      <Spinner
+        animation="border"
+        style={{
+          position: "absolute",
+          left: "50%",
+          bottom: "50%",
+          transform: "translate(-50%; -50%)",
+        }}
+      />
+    );
+  }
 
   return (
     <Container className="mt-3">
       <Row>
         <Col md={4}>
-          <Image src={device.img} className={classes.img} />
+          <Image
+            src={`${URL}/${deviceData.device!.img}`}
+            className={classes.img}
+          />
         </Col>
         <Col md={4}>
           <Row className="d-flex flex-column align-items-center">
-            <h2 className={classes.title}>{device.name}</h2>
+            <h2 className={classes.title}>{deviceData.device!.name}</h2>
             <div
               className=" d-flex align-items-center justify-content-center"
               style={{
@@ -37,7 +80,7 @@ const DevicePage = () => {
                 fontSize: "2.5rem",
               }}
             >
-              {device.rating}
+              {deviceData.device!.rating}
             </div>
           </Row>
         </Col>
@@ -51,16 +94,16 @@ const DevicePage = () => {
               border: "5px solid lightgrey",
             }}
           >
-            <h3>From: {device.price} $</h3>
+            <h3>From: {deviceData.device!.price} $</h3>
             <Button variant="outline-dark">Add to basket</Button>
           </Card>
         </Col>
       </Row>
       <Row className="d-flex flex-column m-3">
         <h1>Characteristics</h1>
-        {description.map((info, i) => (
+        {deviceData.device!.info.map((info, i) => (
           <Row
-            key={info.id}
+            key={info.number}
             style={{
               background: i % 2 === 0 ? "lightgrey" : "transparent",
               padding: 10,

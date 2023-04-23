@@ -29,7 +29,17 @@ const App = observer(() => {
   }, []);
 
   if (isLoading) {
-    return <Spinner animation="border" />;
+    return (
+      <Spinner
+        animation="border"
+        style={{
+          position: "absolute",
+          left: "50%",
+          bottom: "50%",
+          transform: "translate(-50%; -50%)",
+        }}
+      />
+    );
   }
 
   return (

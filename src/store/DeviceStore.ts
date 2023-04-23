@@ -1,96 +1,16 @@
 import { makeAutoObservable } from "mobx"
-import { IDeviceStoreType } from "../utils/types"
+import { IBrandsType, IDeviceStoreType, IDevicesType, ITypesType } from "../utils/types"
 
 export default class DeviceStore implements IDeviceStoreType {
 
-    _types = [
-        {
-            id: 1,
-            name: 'Smartphones'
-        },
-        {
-            id: 2,
-            name: 'Laptops'
-        },
-        {
-            id: 3,
-            name: 'TV'
-        },
-        {
-            id: 4,
-            name: 'Freezer'
-        }
-    ]
-    _brands = [
-        {
-            id: 1,
-            name: 'Samsung'
-        },
-        {
-            id: 2,
-            name: 'Apple'
-        },
-        {
-            id: 3,
-            name: 'Xiaomi'
-        },
-        {
-            id: 4,
-            name: 'Huawei'
-        },
-        {
-            id: 5,
-            name: 'Philips'
-        },
-        {
-            id: 6,
-            name: 'Lenovo'
-        },
-    ]
-    _devices = [
-        {
-            id: 1,
-            name: 'Iphone 12pro',
-            price: 2500,
-            rating: 5,
-            img: 'https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/refurb-iphone-12-pro-max-blue-2020?wid=1144&hei=1144&fmt=jpeg&qlt=90&.v=1635202944000'
-        },
-        {
-            id: 2,
-            name: 'Iphone 12pro',
-            price: 2500,
-            rating: 5,
-            img: 'https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/refurb-iphone-12-pro-max-blue-2020?wid=1144&hei=1144&fmt=jpeg&qlt=90&.v=1635202944000'
-        },
-        {
-            id: 3,
-            name: 'Iphone 12pro',
-            price: 2500,
-            rating: 5,
-            img: 'https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/refurb-iphone-12-pro-max-blue-2020?wid=1144&hei=1144&fmt=jpeg&qlt=90&.v=1635202944000'
-        },
-        {
-            id: 4,
-            name: 'Iphone 12pro',
-            price: 2500,
-            rating: 5,
-            img: 'https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/refurb-iphone-12-pro-max-blue-2020?wid=1144&hei=1144&fmt=jpeg&qlt=90&.v=1635202944000'
-        },
-        {
-            id: 5,
-            name: 'Iphone 12pro',
-            price: 2500,
-            rating: 5,
-            img: 'https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/refurb-iphone-12-pro-max-blue-2020?wid=1144&hei=1144&fmt=jpeg&qlt=90&.v=1635202944000'
-        },
-        {
-            id: 6,
-            name: 'Iphone 12pro',
-            price: 2500,
-            rating: 5,
-            img: 'https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/refurb-iphone-12-pro-max-blue-2020?wid=1144&hei=1144&fmt=jpeg&qlt=90&.v=1635202944000'
-        },
-    ]
+    _types:  ITypesType[] = []
+    _brands: IBrandsType[] = []
+    _devices: IDevicesType[] = []
+
+    _limit = 10
+    _page = 1
+    _totalCount = 0
+
     _selectedType = {}
 
     _selectedBrand = {} 
@@ -112,11 +32,25 @@ export default class DeviceStore implements IDeviceStoreType {
     }
 
     setSelectedType(type: IDeviceStoreType['_selectedType']) {
+        this.setPage(1)
         this._selectedType = type
     }
 
     setSelectedBrand(brand: IDeviceStoreType['_selectedBrand']) {
+        this.setPage(1)
         this._selectedBrand = brand
+    }
+
+    setPage(page: number) {
+        this._page = page
+    }
+
+    setTotalCount(count: number) {
+        this._totalCount = count
+    }
+
+    setLimit(limit: number) {
+        this._limit = limit
     }
 
     get types() {
@@ -137,5 +71,17 @@ export default class DeviceStore implements IDeviceStoreType {
     
     get selectedBrand() {
         return this._selectedBrand
+    }
+
+    get totalCount() {
+        return this._totalCount
+    }
+
+    get page() {
+        return this._page
+    }
+
+    get limit() {
+        return this._limit
     }
 }

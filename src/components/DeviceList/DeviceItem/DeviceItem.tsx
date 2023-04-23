@@ -4,6 +4,7 @@ import { IDevicesType } from "../../../utils/types";
 import star from "../../../assets/star.svg";
 import { useNavigate } from "react-router-dom";
 import { DEVICE_ROUTE } from "../../../utils/consts";
+import { URL } from "../../../utils/URL";
 
 type Props = {
   device: IDevicesType;
@@ -19,7 +20,7 @@ const DeviceItem = ({ device }: Props) => {
         border={"light"}
         onClick={() => navigate(`${DEVICE_ROUTE}/${device.id}`)}
       >
-        <Image className={classes.img} src={device.img} />
+        <Image className={classes.img} src={`${URL}/${device.img}`} />
         <div className="mt-1 d-flex justify-content-between align-items-flex-start p-2 flex-column">
           <div className="d-flex justify-content-between">
             <div className="text-secondary">Brand name</div>

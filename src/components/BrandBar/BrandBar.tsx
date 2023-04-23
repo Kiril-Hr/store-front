@@ -12,10 +12,10 @@ const BrandBar = observer(() => {
 
   return (
     <Row className="d-flex gap-2">
-      {device._brands.map((brand) => (
+      {device.brands.map((brand) => (
         <Card
           border={
-            brand.id === (device._selectedBrand as IBrandsType).id
+            brand.id === (device.selectedBrand as IBrandsType).id
               ? "danger"
               : "light"
           }
